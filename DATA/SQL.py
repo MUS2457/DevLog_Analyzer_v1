@@ -1,4 +1,5 @@
 import sqlite3
+from DATA.class_methods import Logging
 
 def create_connection(db_file = "logged.db"):
     conn = sqlite3.connect(db_file)
@@ -17,5 +18,12 @@ def create_table(conn):
 
     conn.commit()
 
+def add_logs(conn, logs):
+    cursor = conn.cursor()
 
+    data = Logging.from_list_to_tuple(logs)
 
+    cursor.executemany("""INSERT INTO logs (log, message, module, timespent) 
+                      VALUES (?, ?, ?, ?)""", data)
+
+    conn.commit()

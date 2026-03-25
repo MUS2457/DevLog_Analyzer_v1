@@ -1,3 +1,5 @@
+from DATA.class_methods import Logging
+
 def get_log () :
     list_log = ['DEBUG','INFO','WARNING','ERROR']
 
@@ -47,6 +49,29 @@ def get_time_spent() :
 
         except ValueError :
             print(f"Invalid time format :")
+
+def get_logging () :
+    logs = []
+    while True:
+        log = get_log()
+
+        if log == "exit" :
+            print(f"Exiting the program")
+            break
+
+        elif log == "done" :
+            break
+
+        message =get_message(log)
+        module = get_module()
+        time_spent = get_time_spent()
+
+        dev = Logging(log,message,module,time_spent)
+
+        logs.append(dev)
+
+    return logs
+
 
 
 
