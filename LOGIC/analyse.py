@@ -6,8 +6,14 @@ def logging_counter(conn):
         print("1. Count all logs")
         print("2. Count logs by module")
 
+        user = input("Enter your choice or 'exit' to quit: ").strip()
+        if user.lower() == "exit":
+            print("Exiting...")
+            break
+
         try:
-            user_input = int(input("Enter your choice: "))
+            user_input = int(user)
+
         except ValueError:
             print("Invalid input")
             continue
