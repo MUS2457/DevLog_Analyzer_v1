@@ -99,5 +99,3 @@ def count_timespent(conn):
 
 
 
-
-
