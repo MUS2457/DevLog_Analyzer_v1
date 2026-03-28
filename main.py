@@ -13,13 +13,24 @@ def enter_logs(conn):
         print("No logs entered.")
         return
 
+    while True:
+        save = input("Do you want to save these logs? (y/n): ").strip().lower()
+
+        if save in ("y", "n"):
+            break
+        print("Invalid input. Enter y or n.")
+
+    if save == "n":
+        print("Logs were not saved.")
+        return
+
     add_logs(conn, logs)
 
     total_minutes, total_hours = Logging.total_time(logs)
     module_data = Logging.total_per_module(logs)
 
     print("\nSession Summary")
-    print(f"Total time this session: {total_minutes} minutes ({round(total_hours,2)} hours)\n")
+    print(f"Total time this session: {total_minutes} minutes ({round(total_hours, 2)} hours)\n")
 
     for module, data in module_data.items():
         minutes = data["total"]
@@ -69,7 +80,7 @@ def show_top_modules(conn):
 def show_log_counter(conn):
     result = logging_counter(conn)
 
-    if isinstance(result, dict):  # check if the function returned a dictionary (data per module)
+    if isinstance(result, dict):  # result contains module data
         print("\nLogs per module\n")
 
         for module, total in result.items():
